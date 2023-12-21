@@ -3,12 +3,11 @@
 2023.12.21
 now it only load some data
 
-data comes form WTO [https://stats.wto.org/] 
+data comes form WTO [https://stats.wto.org/]
 it stores in .data
 
 ### Get Start
 ```
-bash
 git clone https://github.com/liangshanOral/WTO_WebGIS.git
 ```
 配置环境
