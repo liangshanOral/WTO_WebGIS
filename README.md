@@ -27,6 +27,7 @@ python manage.py runserver
 ```
 转到admin就可以查看数据库了
 
+
 ### 数据说明
 data comes form WTO [https://stats.wto.org/]
 
