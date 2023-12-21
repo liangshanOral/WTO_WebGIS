@@ -41,6 +41,8 @@ it stores in .data
 
 不同地区 不同年份 进出口指数
 
+
+
 大致效果
 
 ![图片描述](imgs/Untitled1.png)
