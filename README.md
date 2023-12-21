@@ -2,7 +2,7 @@
 
 2023.12.21
 
-now it only load some data
+now it only loads some data
 
 
 ### Get Start
