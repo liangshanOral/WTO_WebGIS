@@ -4,14 +4,10 @@
 
 now it only load some data
 
-data comes form WTO [https://stats.wto.org/]
-
-it stores in .data
-
 
 ### Get Start
 ```
-git clone https://github.com/liangshanOral/WTO_WebGIS.git
+git clone [https://github.com/liangshanOral/WTO_WebGIS.git](https://github.com/liangshanOral/WTO_WebGIS.git)
 ```
 配置环境
 ```
@@ -31,4 +27,16 @@ python manage.py runserver
 ```
 转到admin就可以查看数据库了
 
+### 数据说明
+data comes form WTO [https://stats.wto.org/]
+
+it stores in .data
+
+时间跨度 2022-2015
+
+不同地区 不同类别 不同年份 年进出口量
+
+不同地区 不同年份 季度、月进出口量 （但是有些不全）
+
+不同地区 不同年份 进出口指数
 
