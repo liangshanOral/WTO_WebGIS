@@ -1,4 +1,7 @@
 ### A Djangle project for webgis 
+2023.12.28
+we can use it to create some simple graphs
+
 
 2023.12.21
 
@@ -50,4 +53,12 @@ it stores in .data
 ![图片描述](imgs/Untitled3.png)
 ![图片描述](imgs/Untitled4.png)
 
+### 图表说明
+目前仅用了一个表的数据
 
+可以选择单国家多品类，多国家多品类形成折线图
+
+<br>
+大致效果
+![图片描述](imgs/Untitled5.png)
+![图片描述](imgs/Untitled6.png)
