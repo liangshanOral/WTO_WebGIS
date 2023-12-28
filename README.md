@@ -27,6 +27,7 @@ python manage.py runserver
 ```
 转到admin就可以查看数据库了
 
+
 ### 数据说明
 data comes form WTO [https://stats.wto.org/]
 
@@ -40,12 +41,13 @@ it stores in .data
 
 不同地区 不同年份 进出口指数
 
+<br>
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/3eab747e-7837-4492-809b-0a40c4e38b27/b89cf4eb-ebf5-4f70-abe0-673e062b645c/Untitled.png)
+大致效果
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/3eab747e-7837-4492-809b-0a40c4e38b27/74466429-8871-4a21-9dba-16c0731bc39a/Untitled.png)
+![图片描述](imgs/Untitled1.png)
+![图片描述](imgs/Untitled2.png)
+![图片描述](imgs/Untitled3.png)
+![图片描述](imgs/Untitled4.png)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/3eab747e-7837-4492-809b-0a40c4e38b27/310dcaea-5a62-4c67-a8ab-173ad533f7ac/Untitled.png)
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/3eab747e-7837-4492-809b-0a40c4e38b27/4d8ffc54-aa7c-4bf0-ba89-2c2e8c7bbad2/Untitled.png)
 
