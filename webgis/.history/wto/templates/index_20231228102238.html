@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECharts Data Selection</title>
+    <!-- 引入 ECharts 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+</head>
+<body>
+    <h2>Data Selection</h2>
+    
+    <label for="country">Select Country:</label>
+    <select id="country">
+        <!-- 从后端获取的国家列表填充这里 -->
+        <option value="country1">Country 1</option>
+        <option value="country2">Country 2</option>
+        <!-- ... 其他国家选项 ... -->
+    </select>
+
+    <br>
+
+    <label for="product">Select Product:</label>
+    <select id="product">
+        <!-- 从后端获取的产品列表填充这里 -->
+        <option value="product1">Product 1</option>
+        <option value="product2">Product 2</option>
+        <!-- ... 其他产品选项 ... -->
+    </select>
+
+    <br>
+
+    <button onclick="getData()">Get Data</button>
+
+    <br>
+
+    <div id="main" style="width: 600px; height: 400px;"></div>
+
+    <script>
+        var myChart = echarts.init(document.getElementById('main'));
+
+        function getData() {
+            // 获取用户选择的国家和产品
+            const selectedCountry = document.getElementById('country').value;
+            const selectedProduct = document.getElementById('product').value;
+
+            // 发送请求到后端获取数据
+            fetch(`/your-app-name/echarts-data/?country=${selectedCountry}&product=${selectedProduct}`)
+                .then(response => response.json())
+                .then(data => {
+                    // 处理后端返回的数据，更新 ECharts 图表
+                    updateECharts(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+        function updateECharts(data) {
+            // 处理后端返回的数据，更新 ECharts 图表
+            const xAxisData = data.data.map(entry => entry.year);
+            const seriesData = data.data.map(entry => entry.export_value_y);
+
+            myChart.setOption({
+                xAxis: {
+                    data: xAxisData,
+                },
+                series: [{
+                    data: seriesData,
+                }],
+            });
+        }
+    </script>
+</body>
+</html>
