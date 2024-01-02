@@ -60,7 +60,7 @@ it stores in .data
 ![图片描述](imgs/Untitled4.png)
 
 ### 图表说明
-目前仅用了一个表的数据
+目前仅用了一个指标数据
 
 可以选择单国家多品类，多国家多品类形成折线图
 
@@ -70,6 +70,7 @@ it stores in .data
 ![图片描述](imgs/Untitled5.png)
 ![图片描述](imgs/Untitled6.png)
 
+
 可以选择不同品类，不同年份形成流向图
 
 点选某国家就只显示相关信息
@@ -78,3 +79,5 @@ it stores in .data
 大致效果
 
 ![图片描述](imgs/Untitled7.png)
+![图片描述](imgs/Untitled8.png)
+![图片描述](imgs/Untitled9.png)
