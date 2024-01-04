@@ -1,4 +1,9 @@
 ### A Djangle project for webgis 
+2023.12.30
+
+we can see the flows
+
+
 2023.12.28
 
 we can use it to create some simple graphs
@@ -64,3 +69,12 @@ it stores in .data
 
 ![图片描述](imgs/Untitled5.png)
 ![图片描述](imgs/Untitled6.png)
+
+可以选择不同品类，不同年份形成流向图
+
+点选某国家就只显示相关信息
+
+<br>
+大致效果
+
+![图片描述](imgs/Untitled7.png)

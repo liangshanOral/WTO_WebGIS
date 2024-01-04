@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="chs">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WTO Admin</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/static/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- 引入 ECharts 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+
+    <!-- 加载 Jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- 加载 Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">WTO Admin v1.0</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="../home">
+                        <i class="fa fa-desktop fa-fw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="../admin">
+                        <i class="fa fa-database fa-fw"></i>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="../home"><i class="fa fa-dashboard fa-fw"></i> 主页</a>
+                        </li>
+                        <li class="active">
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 功能<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="../control~p1">双边进出口商业贸易额</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p2">地缘经济商业贸易额</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p3">各商品进出口贸易额</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p4">全球贸易晴雨表</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p5">各经济体贸易额季度变化</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p6">各经济体贸易额月度变化</a>
+                                </li>
+                                <li class="active">
+                                    <a href="../control~p7">关税指标</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> 范例<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="../example~p1">出口交易额空间分析</a>
+                                </li>
+                                <li>
+                                    <a href="../example~p2">各年度十大进口国统计</a>
+                                </li>
+                                <li>
+                                    <a href="../example~p3">全球贸易大事件</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>关税指标</h1>
+                        <select id="year">
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                        </select>
+                        <div id="map" style="height: 500px; width: 1000px;"></div>
+                        <div id="bar" style="height: 500px; width: 1000px;"></div>
+                        <script type="text/javascript">
+                            // 外部数据接口
+                            fetch(`/mfn_a/?year=${2019}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log(data["data"]);
+                                    get_mfn_b(data["data"]);
+                                });
+
+                            // var mfn = ["Transport", "Clothing", "Textiles", "Chemicals"];
+
+                            function get_mfn_b(mfn_a) {
+                                fetch(`/mfn_b/?year=${2019}`)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        console.log(data["data"]);
+                                        get_mfn(mfn_a, data["data"]);
+                                    })
+                            }
+
+                            function get_mfn(mfn_a, mfn_b) {
+                                var mfn = mfn_b.map((value) => {
+                                    return value["Product sector"];
+                                }).reduce((pre, cur) => {
+                                    if (!pre.includes(cur)) {
+                                        pre.push(cur);
+                                    }
+                                    return pre;
+                                }, []);
+                                console.log(mfn);
+                                get_country(mfn_a, mfn_b, mfn);
+                            }
+
+                            function get_country(mfn_a, mfn_b, mfn) {
+                                fetch(`/country/`)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        console.log(data)
+                                        var country_l = data["data"];
+                                        console.log(data["data"]);
+
+                                        var map = echarts.init(document.getElementById('map'));
+                                        var bar = echarts.init(document.getElementById('bar'));
+
+                                        var current_country = "";
+                                        var current_year = 2019;
+
+                                        var country_name = [];
+                                        var country_data = [];
+
+                                        var current_center = [];
+                                        var current_data = {};
+
+
+                                        var option = {
+                                            geo: {
+                                                map: 'world',
+                                                roam: true,
+                                                center: [0, 0],
+                                                zoom: 1
+                                            },
+                                            tooltip: {},
+
+                                        };
+
+                                        map.setOption(option);
+
+                                        // 先初始化series中固定值
+                                        var series_pie = {
+                                            type: "pie",
+                                            coordinateSystem: "geo",
+                                            tooltip: {
+                                                formatter: "{b}: {c}({d}%)"
+                                            },
+                                            label: {
+                                                show: false
+                                            },
+                                            labelLine: {
+                                                show: false
+                                            },
+                                            animationDuration: 0,
+                                            radius: 15,
+                                            nameMap: {
+                                                'United States': 'United States of America',
+                                                'Russia': 'Russian Federation',
+                                                'Saudi Arabia': 'Saudi Arabia, Kingdom of'
+                                            }
+                                        };
+
+                                        map.on('click', function (params) {
+                                            if (params.componentType == "geo") {
+                                                current_country = params.name;
+                                            }
+
+                                            // 绘制饼图
+                                            current_center = country_l.filter((location) => {
+                                                return location["Name"] == current_country;
+                                            }).map((location) => {
+                                                return [location["Longitude"], location["Latitude"]];
+                                            }).reduce((prev, cur) => prev.concat(cur), []);
+
+                                            current_data = mfn.map((product) => {
+                                                return {
+                                                    value: mfn_b.filter((data) => {
+                                                        return (data["Reporting country"] == current_country && data["Year"] == current_year
+                                                            && data["Product sector"] == product);
+                                                    }).map((data) => {
+                                                        return Number(data["MFN value"]);
+                                                    }),
+                                                    name: product
+                                                }
+                                            });
+
+                                            series_pie["center"] = current_center;
+                                            series_pie["data"] = current_data;
+
+                                            option["series"] = series_pie;
+
+                                            map.setOption(option);
+                                            console.log(option);
+
+                                            // 绘制柱状图，如果选择国家没有存在于柱状图中，则添加，否则不添加
+                                            console.log(country_name.includes(current_country));
+                                            if (!country_name.includes(current_country)) {
+                                                country_name.push(current_country)
+                                                country_data.push(
+                                                    mfn_a.map((mfn_all, index) => {
+                                                        if (mfn_all["Reporting country"] == current_country && mfn_all["Year"] == current_year) {
+                                                            return mfn_all["MFN value"];
+                                                        }
+                                                    }).reduce((prev, cur) => {
+                                                        if (prev != undefined) {
+                                                            return prev;
+                                                        } else {
+                                                            return cur;
+                                                        }
+                                                    })
+                                                );
+                                            }
+
+                                            console.log(country_data);
+
+                                            let bar_option = {
+                                                xAxis: {
+                                                    type: "category",
+                                                    data: country_name
+                                                },
+                                                yAxis: {
+                                                    type: "value"
+                                                },
+                                                series: [
+                                                    {
+                                                        data: country_data,
+                                                        type: "bar",
+                                                        nameMap: {
+                                                            'United States': 'United States of America',
+                                                            'Russia': 'Russian Federation',
+                                                            'Saudi Arabia': 'Saudi Arabia, Kingdom of'
+                                                        }
+                                                    },
+
+                                                ]
+                                            };
+
+                                            bar.setOption(bar_option);
+                                            console.log(bar_option);
+                                        });
+                                    });
+                            }
+                        </script>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/static/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>

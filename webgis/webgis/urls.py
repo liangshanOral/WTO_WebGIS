@@ -16,11 +16,31 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from wto.views import get_country_product_data, echarts_data, index
+from django.urls import include
+from wto.views import get_country_product_data, get_flow_data ,echarts_data, echarts_flow_data_export, echarts_flow_data_import, year_data_import, year_data_export,quarter_data_import,quarter_data_export,month_data_export,month_data_import,annual_product_import,annual_product_export,echarts_data_import,year_heat_import,year_heat_export, country, mfn_a, mfn_b
+
 
 urlpatterns = [
     #path("select2/", include("django_select2.urls")),
+    path('admin/', admin.site.urls),
+    path('', include('wto.urls')),
     path('get-country-product-data/', get_country_product_data, name='get_country_product_data'),
+    path('get-flow-data/',get_flow_data,name='get_flow_data'),
     path('echarts-data/', echarts_data, name='echarts_data'),
-    path('', index, name='index'),
+    path('echarts-data-import/', echarts_data_import, name='echarts_data_import'),
+    path('echarts-flow-data-export/',echarts_flow_data_export,name="echarts_flow_data_export"),
+    path('echarts-flow-data-import/',echarts_flow_data_import,name="echarts_flow_data_import"),
+    path('year-data-import/',year_data_import,name="year_data_import"),
+    path('year-data-export/',year_data_export,name="year_data_export"),
+    path('quarter-data-import/',quarter_data_import,name="quarter_data_import"),
+    path('quarter-data-export/',quarter_data_export,name="quarter_data_export"),
+    path('month-data-import/',month_data_import,name="month_data_import"),
+    path('month-data-export/',month_data_export,name="month_data_export"),
+    path('annual-product-import/',annual_product_import,name="annual_product_import"),
+    path('annual-product-export/',annual_product_export,name="annual_product_export"),
+    path('year-heat-import/',year_heat_import,name="year_heat_import"),
+    path('year-heat-export/',year_heat_export,name="year_heat_export"),
+    path('country/', country, name="country"),
+    path('mfn_a/', mfn_a, name="mfn_a"),
+    path('mfn_b/', mfn_b, name="mfn_b"),
 ]

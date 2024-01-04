@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECharts Data Selection</title>
+    <!-- 引入 ECharts 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+    <!-- 加载 Jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- 加载 Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+
+</head>
+<body>
+    <h2>Data Selection</h2>
+    
+    <label for="country">Select Country:</label>
+    <select id="country" class="select2" multiple></select>
+
+    <br>
+
+    <label for="product">Select Product:</label>
+    <select id="product" class="select2" multiple></select>
+
+    <br>
+
+    <button onclick="getData()">Get Data</button>
+
+    <br>
+
+    <h2>FLow</h2>
+
+    <label for="product2">Select Product for flow</label>
+    <select id="product2" class="select2" multiple></select>
+
+    <br>
+
+    <label for="time">Select time</label>
+    <select id="time" class="select2" multiple></select>
+
+    <br>
+
+    <button onclick="getData2()">Get Data for flow</button>
+
+    <br>
+
+    <div id="main" style="width: 600px; height: 400px;"></div>
+    <div id="flow" style="width: 600px; height: 400px;"></div>
+
+    <script type="module" src="static/graph.js"></script>
+    <script src="static/flow.js"></script>
+</body>
+</html>
