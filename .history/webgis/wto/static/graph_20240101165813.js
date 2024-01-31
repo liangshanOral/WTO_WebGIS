@@ -148,7 +148,8 @@ function updateECharts(response) {
         }
 
     } else if (uniqueCountriesCount === 1) {
-        console.log('单国家多指标情况');  
+        console.log('单国家多指标情况');
+        
         var groupedData = {};  
         data.forEach(item => {
             var legendName = item.product;  // 按指标分组
