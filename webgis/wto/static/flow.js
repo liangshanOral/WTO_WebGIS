@@ -1,22 +1,35 @@
 var myFlowChart = echarts.init(document.getElementById('flow'));
+var pieChart1 = echarts.init(document.getElementById('pie1'));
+var pieChart2 = echarts.init(document.getElementById('pie2'));
 
+var data = {};
 // 页面加载时初始化 Select2
 document.addEventListener('DOMContentLoaded', function () {
     // 初始化国家和产品的 Select2
-    initSelect2('product2');
-    initSelect2('time');
-    
-    fillSelect2('time', [2020, 2019, 2018, 2017, 2016, 2015]);
+    $('#datatype').select2({
+        width: '100%',
+        placeholder: 'Search or select...',
+        allowClear: true,
+        multiple: false
+    });
+    $('#time').select2({
+        width: '100%',
+        placeholder: 'Search or select...',
+        allowClear: true,
+        multiple: false
+    });
 
+    fillSelect2('time', [2020, 2019, 2018, 2017, 2016, 2015]);
+    fillSelect2('datatype', ['Export', 'Import'])
     // 获取国家和产品数据
-    fetch('/get-flow-data/')
-        .then(response => response.json())
-        .then(data => {
-            fillSelect2('product2', data.products);
-        })
-        .catch(error => {
-            console.error('Error fetching country and product data:', error);
-        });
+    // fetch('/get-flow-data/')
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         fillSelect2('datatype', data.products);
+    //     })
+    //     .catch(error => {
+    //         console.error('Error fetching country and product data:', error);
+    //     });
 });
 
 //不知道为什么不能从其他js中import
@@ -26,7 +39,7 @@ function initSelect2(elementId) {
         width: '100%',
         placeholder: 'Search or select...',
         allowClear: true,
-        multiple: true,
+        multiple: false,
     });
 }
 
@@ -46,24 +59,33 @@ function fillSelect2(elementId, options) {
 function getData2() {
     // 获取用户选择的国家和产品
     const selectedTime = $('#time').val();
-    const selectedProduct = $('#product2').val();
-
-    const TimeParam = selectedTime.join(',');
-    const productParam = selectedProduct.join(',');
+    const selectedType = $('#datatype').val();
 
     // 发送请求到后端获取数据
-    fetch(`/echarts-flow-data/?time=${TimeParam}&product=${productParam}`)
-        .then(response => response.json())
-        .then(data => {
-            // 处理后端返回的数据，更新 ECharts 图表
-            console.log('Data from the backend:', data); 
-            updateflow(data);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
+    if (selectedType == 'Export') {
+        data = fetch(`/echarts-flow-data-export/?time=${selectedTime}`)
+            .then(response => response.json())
+            .then(data => {
+                // 处理后端返回的数据，更新 ECharts 图表
+                console.log('Data from the backend:', data);
+                updateflow(data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    } else if (selectedType == 'Import') {
+        data = fetch(`/echarts-flow-data-import/?time=${selectedTime}`)
+            .then(response => response.json())
+            .then(data => {
+                // 处理后端返回的数据，更新 ECharts 图表
+                console.log('Data from the backend:', data);
+                updateflow(data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
 }
-
 /* useless
 function updateflow(response){
 
@@ -126,7 +148,7 @@ function updateflow(response){
 // 在 updateECharts 函数中处理数据并绘制流向图
 function updateflow(data) {
 
-    backendData=data;
+    backendData = data;
     //console.log(backendData.nodes);
 
     // 构建节点数据
@@ -138,16 +160,19 @@ function updateflow(data) {
     });
     //console.log(nodesData)
     // 构建边数据
+    const minVal = 0;
+    const maxVal = 10000;
     var edgesData = backendData.edges.map(function (edge) {
-
+        var opacity = (edge.value - minVal) / (maxVal - minVal);
+        var color = `rgba(255, 0, 0, ${opacity})`;
         // 使用 Math.min() 来确保线宽不超过最大值
-        var lineWidth = Math.min(0.001*(edge.value), 10);
+        var lineWidth = 10;
 
         return {
             source: edge.source,
             target: edge.target,
             value: edge.value,
-            lineStyle: lineWidth
+            lineStyle: { lineWidth: lineWidth, color: color }
         };
     });
     //console.log(edgesData)
@@ -206,7 +231,6 @@ function updateflow(data) {
             }
         }
     };
-    
     // 假设你已经有了 myChart 对象，并且 nodesData 和 edgesData 包含了节点和边的数据
     myFlowChart.on('click', function (params) {
         if (params.dataType === 'node') {
@@ -214,9 +238,22 @@ function updateflow(data) {
             var clickedNode = params.data;
             var relatedEdges = findRelatedEdges(clickedNode, edgesData);
             var relatedNodes = findRelatedNodes(clickedNode, relatedEdges);
+            var importEdges = findImportEdges(clickedNode, edgesData);
+            var exportEdges = findExportEdges(clickedNode, edgesData);
 
             // 更新图表显示，只显示相关的节点和边
             updateChartWithNodesAndEdges(relatedNodes, relatedEdges);
+            generatepiechartWithImportEdges(clickedNode, importEdges);
+            generatepiechartWithExportEdges(clickedNode, exportEdges);
+        } else {
+            myFlowChart.setOption({
+                series: [{
+                    data: nodesData,
+                    links: edgesData
+
+                }
+                ]
+            })
         }
     });
 
@@ -231,7 +268,63 @@ function updateflow(data) {
         }
         return relatedEdges;
     }
+    function findImportEdges(node, allEdges) {
+        var importEdges = [];
+        for (var i = 0; i < allEdges.length; i++) {
+            var edge = allEdges[i];
+            if (edge.target === node.name) {
+                var importedge = {};
+                importedge.name = edge.source;
+                importedge.value = edge.value;
+                importEdges.push(importedge);
+            }
+        }
+        var result = reclass(importEdges);
+        return result;
+    }
+    function findExportEdges(node, allEdges) {
+        var exportEdges = [];
+        for (var i = 0; i < allEdges.length; i++) {
+            var edge = allEdges[i];
+            if (edge.source === node.name) {
+                var exportedge = {};
+                exportedge.name = edge.target;
+                exportedge.value = edge.value;
+                exportEdges.push(exportedge);
+            }
+        }
 
+        var result = reclass(exportEdges)
+
+        return result;
+    }
+    function reclass(exportEdges) {
+        var sum_export = 0;
+        for (var i = 0; i < exportEdges.length; i++) {
+            sum_export += Number(exportEdges[i]['value']);
+        }
+
+        console.log(sum_export);
+
+        var result = [];
+        var others = {
+            name: 'others',
+            value: 0,
+        }
+        for (var i = 0; i < exportEdges.length; i++) {
+            if (Number(exportEdges[i]['value']) > 0.0005 * exportEdges.length * sum_export) {
+                result.push(exportEdges[i]);
+            } else {
+                others['value'] += Number(exportEdges[i]['value']);
+            }
+        }
+        if (Number(others['value']) == 0) {
+            return result;
+        }
+        result.push(others);
+        return result;
+
+    }
     // 找到与节点相关的节点
     function findRelatedNodes(node, relatedEdges) {
         var relatedNodes = [node.name];
@@ -257,7 +350,48 @@ function updateflow(data) {
             }]
         });
     }
+    function generatepiechartWithImportEdges(clickedNode, importEdges) {
+        //根据所选节点生成饼图
+
+        var optionpie = {
+            title: {
+                text: clickedNode.name + ' import'
+            },
+            series: [
+                {
+                    type: 'pie',
+                    radius: '55%',
+                    data: importEdges
+                }
+            ],
+            tooltip: {
+                show: true,
+
+            }
+        }
+        pieChart1.setOption(optionpie);
+    }
+    function generatepiechartWithExportEdges(clickedNode, exportEdges) {
+        var optionpie = {
+            title: {
+                text: clickedNode.name + ' export'
+            },
+            series: [
+                {
+                    type: 'pie',
+                    radius: '55%',
+                    data: exportEdges
+                }
+            ],
+            tooltip: {
+                show: true,
+
+            }
+        }
+        pieChart2.setOption(optionpie);
+    }
 
     // 渲染图表
     myFlowChart.setOption(option);
+
 }

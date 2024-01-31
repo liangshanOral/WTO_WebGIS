@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WTO Admin</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/static/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="/static/vendor/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- 引入 ECharts 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+    <!-- 加载 Jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- 加载 Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../home">WTO Admin v1.0</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="../home">
+                        <i class="fa fa-desktop fa-fw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="../admin">
+                        <i class="fa fa-database fa-fw"></i>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="../login"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li class="active">
+                            <a href="../home"><i class="fa fa-dashboard fa-fw"></i> 主页</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 功能<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="../control~p1">双边进出口商业贸易额</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p2">地缘经济商业贸易额</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p3">各商品进出口贸易额</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p4">全球贸易晴雨表</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p5">各经济体贸易额季度变化</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p6">各经济体贸易额月度变化</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p7">关税指标</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> 范例<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="../example~p1">出口交易额空间分析</a>
+                                </li>
+                                <li>
+                                    <a href="../example~p2">各年度十大进口国统计</a>
+                                </li>
+                                <li>
+                                    <a href="../example~p3">全球贸易大事件</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Dashboard</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            经典案例——出口交易额空间分析
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#home1" data-toggle="tab">图片预览</a>
+                                </li>
+                                <li><a href="#profile1" data-toggle="tab">简介</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content" style="overflow-y: scroll; height: 100px;">
+                                <div class="tab-pane fade in active" id="home1">
+                                    <div class="col-lg-4 col-xs-12">
+                                        <img src="/static/images/出口交易额.jpg" alt="events" width="400px" />
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="profile1">
+                                    <p>
+                                        <br>
+                                        选择不同的商品种类生成分层设色显示的热力图，直观的可视化各种商品主要出口国，并以此制作各种专题图，分析石油、钢铁、粮食等重要资源的产地分布
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                        <a href="../example~p1">
+                            <div class="panel-footer">
+                                <span class="pull-left">查看详情</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            经典案例——各年度十大进口国统计
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#home2" data-toggle="tab">图片预览</a>
+                                </li>
+                                <li><a href="#profile2" data-toggle="tab">简介</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content" style="overflow-y: scroll; height: 100px;">
+                                <div class="tab-pane fade in active" id="home2">
+                                    <div class="col-lg-4 col-xs-12">
+                                        <img src="/static/images/十大进口国.jpg" alt="events" width="400px" />
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="profile2">
+                                    <p>
+                                        <br>
+                                        进口贸易额是国际贸易分析中的一个重要指标，可以用来了解一个国家或地区的贸易活动、经济结构以及与其他国家的贸易关系。
+                                        <br>
+                                        滑动右侧滑块选择年份，生成各年份动态的十大进口国条形统计图和饼图，并在地图上分层设色显示，以直观的可视化世界主要经济体贸易进口对比
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                        <a href="../example~p2">
+                            <div class="panel-footer">
+                                <span class="pull-left">查看详情</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            经典案例——全球贸易大事件
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#home3" data-toggle="tab">图片预览</a>
+                                </li>
+                                <li><a href="#profile3" data-toggle="tab">简介</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content" style="overflow-y: scroll; height: 100px;">
+                                <div class="tab-pane fade in active" id="home3">
+                                    <div class="col-lg-4 col-xs-12">
+                                        <img src="/static/images/大事记.jpg" alt="events" width="400px" />
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="profile3">
+                                    <p>
+                                        <br>
+                                        全球贸易是一个复杂的系统，多种因素交织在一起。每一个国家和地区都可能受到不同的因素和事件的影响，而这些因素和事件的影响也可能在一定程度上相互交织。
+                                        <br>
+                                        在2015年到2022年期间，全球贸易发生了一系列重大事件，结合图表可以更直观的展现这些事件和趋势。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                        <a href="../example~p3">
+                            <div class="panel-footer">
+                                <span class="pull-left">查看详情</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> 全球贸易动态折线图
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body" style="height: 500px;">
+                            <div id="live_barchart" style="height: 500px;"></div>
+                            <script src="/static/js/live_barchart.js"></script>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> 图表示例
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div style="display: flex;">
+                                        <div class="col-md-6">
+                                            <div id="pie1" style="flex:1;height: 400px;"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div id="pie2" style="flex:2;height: 400px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script>
+                                    var pie1 = echarts.init(document.getElementById('pie1'));
+                                    var pie2 = echarts.init(document.getElementById('pie2'));
+                                    const selectedProduct = 'SI3_AGG - TO - Total merchandise';
+                                    const selectedTime = 2020;
+                                    // 发送请求到后端获取数据
+                                    fetch(`/annual-product-import/?product=${selectedProduct}&time=${selectedTime}`)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            // 处理后端返回的数据，更新 ECharts 图表
+                                            console.log('Data from the backend:', data);
+                                            updateimportcharts(data);
+                                        })
+                                        .catch(error => {
+                                            console.error('Error fetching data:', error);
+                                        });
+                                    fetch(`/annual-product-export/?product=${selectedProduct}&time=${selectedTime}`)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            // 处理后端返回的数据，更新 ECharts 图表
+                                            console.log('Data from the backend:', data);
+                                            updateexportcharts(data);
+                                        })
+                                        .catch(error => {
+                                            console.error('Error fetching data:', error);
+                                        });
+                                    function updateimportcharts(response) {
+                                        // 清空图表
+                                        pie1.clear();
+                                        // 从 response 中获取数据
+                                        var data = response.data;
+                                        data.sort(sortArr('value'));
+                                        data = reclass(data);
+                                        // 配置 ECharts 图表
+                                        var option = {
+                                            title: {
+                                                text: 'Most Import Countries '
+                                            },
+                                            tooltip: {
+                                                show: true,
+                                            },
+                                            series: [
+                                                {
+                                                    type: 'pie',
+                                                    radius: '55%',
+                                                    data: data,
+                                                }
+                                            ]// 在这里设置系列，每个指标一个系列项
+                                        };
+                                        // 使用 option 更新 ECharts 图表
+                                        pie1.setOption(option);
+                                    }
+                                    function updateexportcharts(response) {
+                                        // 清空图表
+                                        pie2.clear();
+                                        // 从 response 中获取数据
+                                        var data = response.data;
+                                        data.sort(sortArr('value'));
+                                        data = reclass(data);
+                                        // 配置 ECharts 图表
+                                        var option = {
+                                            title: {
+                                                text: 'Most Export Countries '
+                                            },
+                                            tooltip: {
+                                                show: true,
+                                            },
+                                            series: [
+                                                {
+                                                    type: 'pie',
+                                                    radius: '55%',
+                                                    data: data,
+                                                }
+                                            ]  // 在这里设置系列，每个指标一个系列项
+                                        };
+                                        // 使用 option 更新 ECharts 图表
+                                        pie2.setOption(option);
+                                    }
+                                    function sortArr(attr) {
+                                        return function (a, b) {
+                                            return b[attr] - a[attr]
+                                        }
+                                    }
+                                    function reclass(exportEdges) {
+                                        var sum_export = 0;
+                                        for (var i = 0; i < exportEdges.length; i++) {
+                                            sum_export += Number(exportEdges[i]['value']);
+                                        }
+                                        var result = [];
+                                        var others = {
+                                            name: 'others',
+                                            value: 0,
+                                        }
+                                        for (var i = 0; i < exportEdges.length; i++) {
+                                            if (Number(exportEdges[i]['value']) > 0.0001 * exportEdges.length * sum_export) {
+                                                result.push(exportEdges[i]);
+                                            } else {
+                                                others['value'] += Number(exportEdges[i]['value']);
+                                            }
+                                        }
+                                        if (Number(others['value']) == 0) {
+                                            return result;
+                                        }
+                                        result.push(others);
+                                        return result;
+                                    }
+                                </script>
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-8 -->
+                <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-list fa-fw"></i> 相关链接
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <a href="https://www.qianzhan.com/analyst/detail/220/191120-ac211b28.html"
+                                    class="list-group-item">
+                                    <i class="fa fa-angle-double-right fa-fw"></i> 2022年全球经济、贸易和发展趋势
+                                </a>
+                                <a href="https://news.un.org/zh/story/2022/12/1113287" class="list-group-item">
+                                    <i class="fa fa-angle-double-right fa-fw"></i> 【国家发改委】2021全球贸易额创历史新高
+                                </a>
+                                <a href="http://iwep.cssn.cn/xscg/xscg_sp/202004/t20200401_5108806.shtml"
+                                    class="list-group-item">
+                                    <i class="fa fa-angle-double-right fa-fw"></i> 2020疫情对全球贸易和中国贸易的影响
+                                </a>
+                                <a href="https://www.qianzhan.com/analyst/detail/220/191120-ac211b28.html"
+                                    class="list-group-item">
+                                    <i class="fa fa-angle-double-right fa-fw"></i> 十张图带你看2019年世界贸易
+                                </a>
+                                <a href="https://www.xifeng.gov.cn/jdhy/hygq/201810/t20181026_1836348.html"
+                                    class="list-group-item">
+                                    <i class="fa fa-angle-double-right fa-fw"></i> 中美贸易摩擦的实质、影响与机遇
+                                </a>
+                                <a href="https://m.sohu.com/a/259444574_100285564#read" class="list-group-item">
+                                    <i class="fa fa-angle-double-right fa-fw"></i> 赶超美国！中国2017贸易总额超美国
+                                </a>
+                                <a href="http://swj.jinhua.gov.cn/art/2016/7/8/art_1229187436_54499335.html"
+                                    class="list-group-item">
+                                    <i class="fa fa-angle-double-right fa-fw"></i> 英国脱欧将给全球经济带来四大新变数
+                                </a>
+                                <a href="https://www.gov.cn/xinwen/2016-01/29/content_5037294.htm"
+                                    class="list-group-item">
+                                    <i class="fa fa-angle-double-right fa-fw"></i> 2015中国经济增速放缓
+                                </a>
+                            </div>
+                            <!-- /.list-group -->
+                            <a href="#" class="btn btn-default btn-block">查看所有</a>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    <div class="chat-panel panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-comments fa-fw"></i> 对话
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle"
+                                    data-toggle="dropdown">
+                                    <i class="fa fa-chevron-down"></i>
+                                </button>
+                                <ul class="dropdown-menu slidedown">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-refresh fa-fw"></i> 刷新
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-check-circle fa-fw"></i> Available
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-times fa-fw"></i> Busy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-clock-o fa-fw"></i> Away
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-sign-out fa-fw"></i> Sign Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <ul class="chat">
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar"
+                                            class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Assistant</strong>
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 11 mins ago
+                                            </small>
+                                        </div>
+                                        <p>
+                                            欢迎来到本网页，请问您有什么需要帮助的吗 </p>
+                                    </div>
+                                </li>
+                                <li class="right clearfix">
+                                    <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar"
+                                            class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class=" text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 9 mins ago</small>
+                                            <strong class="pull-right primary-font">Me</strong>
+                                        </div>
+                                        <p>
+                                            网站主要功能？？
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar"
+                                            class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Assistant</strong>
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 9 mins ago</small>
+                                        </div>
+                                        <p>
+                                            本网站主要提供2015~2022年世界贸易相关信息可视化，详见左侧功能栏。您也可以在案例栏查看经典专题图案例
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="right clearfix">
+                                    <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar"
+                                            class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class=" text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 5 mins ago</small>
+                                            <strong class="pull-right primary-font">Me</strong>
+                                        </div>
+                                        <p>
+                                            制图用的数据来自于哪里，能否查看？
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar"
+                                            class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Assistant</strong>
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 5 mins ago</small>
+                                        </div>
+                                        <p>
+                                            本网站使用的所有数据来自于世界贸易组织WTO。可在页面右上角点击数据库图标查看
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.panel-body -->
+                        <div class="panel-footer">
+                            <div class="input-group">
+                                <input id="btn-input" type="text" class="form-control input-sm"
+                                    placeholder="Type your message here..." />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-sm" id="btn-chat">
+                                        Send
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /.panel-footer -->
+                    </div>
+                    <!-- /.panel .chat-panel -->
+                </div>
+                <!-- /.col-lg-4 -->
+            </div>
+            <!-- /.row -->
+            Copyright &copy; 2023.WebGIS Group.
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/static/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="/static/vendor/raphael/raphael.min.js"></script>
+    <script src="/static/vendor/morrisjs/morris.min.js"></script>
+    <script src="/static/data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>

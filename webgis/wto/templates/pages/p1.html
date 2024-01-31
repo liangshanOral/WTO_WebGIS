@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="chs">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WTO Admin</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/static/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- 引入 ECharts 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+
+    <!-- 加载 Jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- 加载 Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">WTO Admin v1.0</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="../home">
+                        <i class="fa fa-desktop fa-fw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="../admin">
+                        <i class="fa fa-database fa-fw"></i>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="../home"><i class="fa fa-dashboard fa-fw"></i> 主页</a>
+                        </li>
+                        <li class="active">
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 功能<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li class="active">
+                                    <a href="../control~p1">双边进出口商业贸易额</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p2">地缘经济商业贸易额</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p3">各商品进出口贸易额</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p4">全球贸易晴雨表</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p5">各经济体贸易额季度变化</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p6">各经济体贸易额月度变化</a>
+                                </li>
+                                <li>
+                                    <a href="../control~p7">关税指标</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> 范例<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="../example~p1">出口交易额空间分析</a>
+                                </li>
+                                <li>
+                                    <a href="../example~p2">各年度十大进口国统计</a>
+                                </li>
+                                <li>
+                                    <a href="../example~p3">全球贸易大事件</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <h1 class="page-header">全球跨国贸易流向地图</h1>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label for="datatype">Import/Export</label>
+                        <select id="datatype" class="select2"></select>
+                        <br>
+                        <br>
+                        <label for="time">Select time</label>
+                        <select id="time" class="select2"></select>
+                        <br>
+                        <br>
+                        <button onclick="getData2()" class="btn btn-outline btn-success">生成流向图</button>
+                        <div id="flow" style="display: flex; width:90%;height:600px;margin:auto"></div>
+                        <div style="display: flex;">
+                            <div class="col-md-6">
+                                <div id="pie1" style="flex:1;height: 400px;"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="pie2" style="flex:2;height: 400px;"></div>
+                            </div>
+                        </div>
+                        <script src="/static/flow.js"></script>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+    </div>
+
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/static/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/dist/js/sb-admin-2.js"></script>
+</body>
+
+</html>
