@@ -70,7 +70,6 @@ it stores in .data
 ![图片描述](imgs/Untitled5.png)
 ![图片描述](imgs/Untitled6.png)
 
-
 可以选择不同品类，不同年份形成流向图
 
 点选某国家就只显示相关信息
@@ -79,5 +78,3 @@ it stores in .data
 大致效果
 
 ![图片描述](imgs/Untitled7.png)
-![图片描述](imgs/Untitled8.png)
-![图片描述](imgs/Untitled9.png)

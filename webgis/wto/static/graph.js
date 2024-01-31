@@ -5,7 +5,18 @@ document.addEventListener('DOMContentLoaded', function () {
     // 初始化国家和产品的 Select2
     initSelect2('country');
     initSelect2('product');
-
+    $('#start').select2({
+        width: '100%',
+        placeholder: 'Search or select...',
+        allowClear: true,
+    });
+    $('#end').select2({
+        width: '100%',
+        placeholder: 'Search or select...',
+        allowClear: true,
+    });
+    fillSelect2('start',[2015,2016,2017,2018,2019,2020,2021,2022])
+    fillSelect2('end',[2015,2016,2017,2018,2019,2020,2021,2022])
     // 获取国家和产品数据
     fetch('/get-country-product-data/')
         .then(response => response.json())
@@ -45,7 +56,24 @@ function getData() {
     // 获取用户选择的国家和产品
     const selectedCountry = $('#country').val();
     const selectedProduct = $('#product').val();
-
+    var selectedStart = $('#start').val();
+    var selectedEnd = $('#end').val();
+    var Time=[];
+    if(selectedEnd<selectedStart){
+        confirm("结束时间必须在开始时间之后！")
+        selectedEnd=selectedStart
+        currentyear=Number(selectedStart);
+        while(currentyear<=selectedEnd){
+            Time.push(currentyear);
+            currentyear++;
+        }
+    }else{
+        currentyear=Number(selectedStart);
+        while(currentyear<=selectedEnd){
+            Time.push(currentyear);
+            currentyear++;
+        }
+    }
     const countryParam = selectedCountry.join(',');
     const productParam = selectedProduct.join(',');
 
@@ -55,14 +83,14 @@ function getData() {
         .then(data => {
             // 处理后端返回的数据，更新 ECharts 图表
             console.log('Data from the backend:', data); 
-            updateECharts(data);
+            updateECharts(data,Time);
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
 }
 
-function updateECharts(response) {
+function updateECharts(response,Time) {
     // 清空图表
     myChart.clear();
 
@@ -94,7 +122,7 @@ function updateECharts(response) {
         xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: years
+            data: Time
         },
         yAxis: {
             type: 'value'
@@ -148,7 +176,8 @@ function updateECharts(response) {
         }
 
     } else if (uniqueCountriesCount === 1) {
-        console.log('单国家多指标情况');  
+        console.log('单国家多指标情况');
+        
         var groupedData = {};  
         data.forEach(item => {
             var legendName = item.product;  // 按指标分组
@@ -161,6 +190,7 @@ function updateECharts(response) {
                 option.legend.data.push(legendName);
             }
         });
+
         // 处理单国家多指标的数据，添加到系列中
         for (var key in groupedData) {
             if (groupedData.hasOwnProperty(key)) {
